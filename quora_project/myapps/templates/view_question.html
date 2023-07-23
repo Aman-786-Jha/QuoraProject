@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2>{{ question.title }}</h2>
+  <p>{{ question.content }}</p>
+  <hr>
+  <h4>Answers:</h4>
+  {% for answer in answers %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <p>{{ answer.content }}</p>
+      <small>Answered by {{ answer.author.username }} on {{ answer.created_at }}</small>
+      <a href="{% url 'like_answer' answer.id %}" class="btn btn-sm btn-primary ml-3">Like</a>
+    </div>
+  </div>
+  {% endfor %}
+  <hr>
+  <h4>Post an Answer:</h4>
+  <form method="post" action="{% url 'post_answer' question.id %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="content">Your Answer:</label>
+      <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Post Answer</button>
+  </form>
+</div>
+{% endblock %}

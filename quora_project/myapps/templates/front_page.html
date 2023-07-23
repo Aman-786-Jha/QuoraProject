@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+<!-- 
+
+
+<div class="container">
+  <h2>Latest Questions</h2>
+  {% if questions %}
+    {% for question in questions %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ question.title }}</h5>
+        <p class="card-text">{{ question.content }}</p>
+        <a href="{% url 'view_question' question.id %}" class="btn btn-primary">View Answers</a>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p>No questions available.</p>
+  {% endif %}
+</div> -->
+
+
+
+
+{% block content %}
+<div class="container">
+  <h2>Latest Questions</h2>
+  <form method="get">
+    <div class="form-group">
+      <input type="text" class="form-control" name="q" placeholder="Search for questions">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+
+  {% if questions %}
+    {% for question in questions %}
+      {% if question.is_approved %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ question.title }}</h5>
+            <p class="card-text">{{ question.content }}</p>
+            <small>Posted by {{ question.author.username }} on {{ question.created_at }}</small>
+            <a href="{% url 'view_question' question.id %}" class="btn btn-primary ml-3">View Answers</a>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <p>No questions available.</p>
+  {% endif %}
+</div>
+{% endblock %}
+

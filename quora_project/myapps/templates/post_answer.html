@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2>Post an Answer</h2>
+  <form method="post" action="{% url 'post_answer' question_id %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="content">Your Answer:</label>
+      <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Post Answer</button>
+  </form>
+</div>
+{% endblock %}
